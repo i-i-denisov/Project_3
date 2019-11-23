@@ -1,2 +1,5 @@
-a = [1, 2, 3, 4, 5, 6, 7, 8]
-print (a[1:2])
+
+import tensorflow as tf
+
+print (tf.test.is_built_with_cuda())
+print(tf.test.is_gpu_available(cuda_only=False, min_cuda_compute_capability=None))
