@@ -40,7 +40,6 @@ one_hot_y = tf.one_hot(y, label_num)
 # Create a training pipeline that uses the model to classify MNIST data.
 logits = functions.LeNet(x,label_num)
 cross_entropy = tf.nn.softmax_cross_entropy_with_logits(labels=one_hot_y, logits=logits)
-#regularizer = tf.nn.l2_loss(weights)
 loss_operation = tf.reduce_mean(cross_entropy)
 optimizer = tf.train.AdamOptimizer(learning_rate=functions.rate)
 training_operation = optimizer.minimize(loss_operation)
@@ -70,7 +69,6 @@ with tf.Session() as sess:
 
         validation_accuracy = functions.evaluate(x_valid, y_valid)
         print("EPOCH {} ...".format(epoch + 1))
-        #print("learning_rate {}".format(functions.rate_decay(epoch)))
         print("Validation Accuracy = {:.3f}".format(validation_accuracy))
         print()
 
