@@ -14,21 +14,40 @@ $
 #Traffic sign classifier
 ---
 Goal of this project is to train a convolutional neural network to classify traffic sign images using german traffic sings [dataset](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset).
+Certain number of steps of this project can be distinguished:
+* Load the data set (see below for links to the project data set)
+* Explore, summarize and visualize the data set
+* Design, train and test a model architecture
+* Use the model to make predictions on new images
+* Analyze the softmax probabilities of the new images
+* Summarize the results with a written report
 
 [//]: # (Image References)
 
-[image1]: ./Writeup/random sign visualisation.png "Random sign"
-[image2]: ./Writeup/Dataset label count.png "Dataset sign distribution"
-[image3]: ./Writeup/combined_binary.jpg "Binary Example"
+[image1]: ./Writeup/random_sign_visualisation.png "Random sign"
+[image2]: ./Writeup/Dataset_label_count.png "Dataset sign distribution"
+[image3]: ./Writeup/Dataset_examples.png "Dataset overwiev"
 [image4]: ./Writeup/warp.png "Warp Example"
 [image5]: ./Writeup/warped_lines_drawn.jpg "Fit Visual"
 
 
-###Dataset exploration
+##Dataset exploration
 
-This dataset consisnts of 51 839 labeled 32x32 RGB images, which we split into three sets for training, validation and testing:
+This dataset consisnts of 51.839 32x32 RGB images distributed across 43 classes.
+Each image contains only one traffic sign.
+Examples of images for each sign in dataset:
+![Alt_text][image3]
 
+One image at closeup: 
+![Alt text][image1]  
+
+I split into three sets for training, validation and testing:
 - Training Set:   34799 samples
 - Validation Set: 4410 samples
 - Test Set:       12630 samples
+
+This is how images are distributed across this sets:
+![Alt_text][image2]
+  
+
 
