@@ -2,16 +2,18 @@ import functions
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
+img_num=1712
 x_train, y_train, X_validation, y_validation, __, __=functions.dataset_load()
-x_train=functions.dataset_grayscale(x_train)
+#x_train=functions.dataset_grayscale(x_train)
 with tf.Session() as sess:
     restorer = tf.train.import_meta_graph('lenet.meta')
     restorer.restore(sess, tf.train.latest_checkpoint('.'))
     print('input_image')
-    plt.figure(0,figsize=(1, 1))
-    img = x_train[1712]
+    fig=plt.figure(0,figsize=(1, 1))
+    img = x_train[img_num]
     #plt.ion()
     plt.imshow(img.squeeze(), cmap='gray')
+    fig.suptitle("Image label {}".format(y_train[img_num]))
     #plt.show()
     #plt.pause(0.0001)
     #plt.draw()

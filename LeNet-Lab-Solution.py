@@ -16,13 +16,13 @@ import tensorflow as tf
 import functions
 
 
-x_train, y_train, x_valid, y_valid, __, __=functions.dataset_load()
+x_train, y_train, x_valid, y_valid, x_test, y_test=functions.dataset_load()
 unique_labels_train, label_dist_train=np.unique(y_train, return_counts=True)
 unique_labels_valid, label_dist_valid=np.unique(y_valid, return_counts=True)
 
 # ## Preprocess Data
 x_train, y_train = shuffle(x_train, y_train)
-functions.dataset_visualise(x_train,y_train,x_valid,y_valid)
+functions.dataset_visualise(x_train,y_train,x_valid,y_valid,x_train,y_train)
 x_train= functions.dataset_normalize(x_train)
 x_valid=functions.dataset_normalize(x_valid)
 (img_width,img_height,img_layers)=x_train[0].shape
