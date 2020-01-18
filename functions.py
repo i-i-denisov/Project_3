@@ -317,6 +317,17 @@ def dataset_augment_poisson_noise(x,y):
     augm_y=np.hstack((y,y))
     return augm_x,augm_y
 
+def dataset_augment_rotate_shift_w_balanced_count(x,y):
+    unique_labels, label_count = np.unique(y, return_counts=True)
+    max_label_num=np.amax(label_count)
+    max_label_index=unique_labels[np.argmax(label_count)]
+    for i in len(unique_labels):
+        label=unique_labels[i]
+        count=label_count[i]
+        if count*3<max_label_num:
+            x,y=augment_rotate_shift(x,y)
+        elif count*2<max_label_num:
+            x,y=augment_rotate(x,y)
 
 
 
