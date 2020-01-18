@@ -28,7 +28,7 @@ Certain number of steps of this project can be distinguished:
 [image2]: ./writeup/Dataset_label_count.png "Dataset sign distribution"
 [image3]: ./writeup/Dataset_examples.png "Dataset overwiev"
 [image4]: ./writeup/warp.png "Warp Example"
-[image5]: ./writeup/warped_lines_drawn.jpg "Fit Visual"
+[image5]: ./writeup/warped_lines_drawn.jpg "Fit Visual"  
 
 
 ##Dataset exploration
