@@ -22,16 +22,11 @@ unique_labels_valid, label_dist_valid=np.unique(y_valid, return_counts=True)
 
 # ## Preprocess Data
 x_train, y_train = shuffle(x_train, y_train)
-#print ("Augmenting dataset with poisson noise")
-#x_train, y_train=functions.dataset_augment_poisson_noise(x_train, y_train)
-#x_train=functions.dataset_grayscale(x_train)
-#x_valid=functions.dataset_grayscale(x_valid)
-#functions.dataset_visualise(x_train,y_train,x_valid,y_valid)
+functions.dataset_visualise(x_train,y_train,x_valid,y_valid)
 x_train= functions.dataset_normalize(x_train)
 x_valid=functions.dataset_normalize(x_valid)
 (img_width,img_height,img_layers)=x_train[0].shape
 print (x_train[0].shape)
-#functions.dataset_visualise(x_train,y_train,x_valid,y_valid)
 # ## Features and Labels
 # Train LeNet to classify German traffic signs dataset
 # `x` is a placeholder for a batch of input images.
@@ -41,7 +36,6 @@ x = tf.placeholder(tf.float32,  (None, img_width,img_height,img_layers), name='p
 y = tf.placeholder(tf.int32, (None), name='placeholder_y')
 dropout_rate = tf.placeholder(tf.float32, name='placeholder_dropout_rate')
 one_hot_y = tf.one_hot(y, label_num)
-epoch=0
 # ## Training Pipeline
 # Create a training pipeline that uses the model to classify MNIST data.
 logits = functions.LeNet(x,label_num)
