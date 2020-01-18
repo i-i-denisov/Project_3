@@ -11,7 +11,7 @@ $
 
 *If you're having trouble solving problem 1, you can view the solution [here](https://github.com/udacity/CarND-TensorFlow-Lab/blob/master/solutions.ipynb).*
 
-#Traffic sign classifier
+# Traffic sign classifier
 ---
 Goal of this project is to train a convolutional neural network to classify traffic sign images using german traffic sings [dataset](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset).
 Certain number of steps of this project can be distinguished:
@@ -31,7 +31,7 @@ Certain number of steps of this project can be distinguished:
 [image5]: ./writeup/warped_lines_drawn.jpg "Fit Visual"  
 
 
-##Dataset exploration
+## Dataset exploration
 
 This dataset consisnts of 51.839 32x32 RGB images distributed across 43 classes.
 Each image contains only one traffic sign.
