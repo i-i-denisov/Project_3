@@ -24,11 +24,11 @@ Certain number of steps of this project can be distinguished:
 
 [//]: # (Image References)
 
-[image1]: ./Writeup/random_sign_visualisation.png "Random sign"
-[image2]: ./Writeup/Dataset_label_count.png "Dataset sign distribution"
-[image3]: ./Writeup/Dataset_examples.png "Dataset overwiev"
-[image4]: ./Writeup/warp.png "Warp Example"
-[image5]: ./Writeup/warped_lines_drawn.jpg "Fit Visual"
+[image1]: ./writeup/random_sign_visualisation.png "Random sign"
+[image2]: ./writeup/Dataset_label_count.png "Dataset sign distribution"
+[image3]: ./writeup/Dataset_examples.png "Dataset overwiev"
+[image4]: ./writeup/warp.png "Warp Example"
+[image5]: ./writeup/warped_lines_drawn.jpg "Fit Visual"
 
 
 ##Dataset exploration
