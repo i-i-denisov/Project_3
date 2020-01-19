@@ -2,7 +2,7 @@ import functions
 import tensorflow as tf
 import numpy as np
 with tf.Session() as sess:
-    __, __, __, __, x_test, y_test = functions.dataset_load()
+    x_train, y_train, x_valid, y_valid, x_test, y_test = functions.dataset_load()
     #x_test = functions.dataset_grayscale(x_test)
     restorer = tf.train.import_meta_graph('lenet.meta')
     restorer.restore(sess, './lenet')

@@ -38,7 +38,8 @@ dropout_rate = tf.placeholder(tf.float32, name='placeholder_dropout_rate')
 one_hot_y = tf.one_hot(y, label_num)
 # ## Training Pipeline
 # Create a training pipeline that uses the model to classify MNIST data.
-logits = functions.LeNet(x,label_num)
+logits = functions.LeNet(x,label_num,dropout_rate)
+top_predictions = tf.nn.top_k(tf.nn.softmax(logits), k=5,name='top_predictions_op')
 cross_entropy = tf.nn.softmax_cross_entropy_with_logits(labels=one_hot_y, logits=logits)
 loss_operation = tf.reduce_mean(cross_entropy)
 optimizer = tf.train.AdamOptimizer(learning_rate=functions.rate)
@@ -58,10 +59,9 @@ with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
     num_examples = len(x_train)
 
-    print("Training...")
+    print("Training with learning rate {:.3f}, numer of epochs {}...".format(functions.rate,functions.EPOCHS))
     print()
     for epoch in range(functions.EPOCHS):
-        x_train, y_train = shuffle(x_train, y_train)
         for offset in range(0, num_examples, functions.BATCH_SIZE):
             end = offset + functions.BATCH_SIZE
             batch_x, batch_y = x_train[offset:end], y_train[offset:end]

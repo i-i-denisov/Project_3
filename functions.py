@@ -24,6 +24,7 @@ conv1_depth=12
 conv2_kernel=5
 conv2_filter_depth=12
 conv2_depth=36
+#TODO this is a wrong formula - to redefine it
 FC_inputs_count=conv2_kernel*conv2_kernel*conv2_depth
 fc_2_output_num=120
 fc_3_output_num=84
@@ -83,7 +84,7 @@ def LeNetRGB(x,label_count,dropout_rate=0.0):
     fc0 = tf.concat([convR,convG,convB],1)
 
     #Fully connected part
-    logits=LeNet_FC(fc0,2400,label_count,rate=dropout_rate)
+    logits=LeNet_FC(fc0,2400,label_count,dropout_rate=dropout_rate)
     return logits
 
 def LeNet_convR (x,dropout_rate=0.0):
@@ -95,12 +96,12 @@ def LeNet_convR (x,dropout_rate=0.0):
     # SOLUTION: Activation.
     convR1 = tf.nn.relu(convR1)
 
-    # SOLUTION: Pooling. Input = 28x28x6. Output = 14x14x6.
+    # SOLUTION: Pooling. Input = 28x28x12. Output = 14x14x12.
     convR1 = tf.nn.max_pool2d(convR1, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='VALID', name='conv1R')
     #
     # print (conv1.name)
 
-    #Layer 2: Convolutional. Output = 10x10x16.
+    #Layer 2: Convolutional. Output = 10x10x32.
     convR2_W = tf.Variable(tf.truncated_normal(shape=(conv2_kernel, conv2_kernel, conv2_filter_depth, conv2_depth), mean=mu_conv, stddev=sigma_conv))
     convR2_b = tf.Variable(tf.zeros(conv2_depth))
     convR2 = tf.nn.conv2d(convR1, convR2_W, strides=[1, 1, 1, 1], padding='VALID') + convR2_b
@@ -108,7 +109,7 @@ def LeNet_convR (x,dropout_rate=0.0):
     # SOLUTION: Activation.
     convR2 = tf.nn.relu(convR2)
 
-    # SOLUTION: Pooling. Input = 10x10x16. Output = 5x5x16.
+    # SOLUTION: Pooling. Input = 10x10x32. Output = 5x5x32.
     convR2 = tf.nn.max_pool2d(convR2, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='VALID', name='conv2R')
     return convR2
 
@@ -179,9 +180,9 @@ def LeNet_FC(fc0, FC_inputs_count, label_count, dropout_rate=0.0):
     fc3 = tf.matmul(fc2, fc3_W) + fc3_b
     # Activation.
     fc3 = tf.nn.relu(fc3)
-    #fc3=tf.nn.dropout(fc3,rate=dropout_rate)
+    fc3=tf.nn.dropout(fc3,rate=dropout_rate)
 
-    #Layer 6: Fully Connected. Input = 84. Output = 10.
+    #Layer 6: Fully Connected. Input = 84. Output = 43.
     fc4_W = tf.Variable(tf.truncated_normal(shape=(fc_3_output_num, label_count), mean=mu, stddev=sigma))
     fc4_b = tf.Variable(tf.zeros(label_count))
     logits = tf.matmul(fc3, fc4_W) + fc4_b
@@ -223,17 +224,17 @@ def outputFeatureMap(image_input, tf_activation, activation_min=-1, activation_m
     #plt.draw()
 
 
-def evaluate(X_data, y_data):
-    num_examples = len(X_data)
+def evaluate(x_data, y_data):
+    num_examples = len(x_data)
     total_accuracy = 0
     sess = tf.get_default_session()
     for offset in range(0, num_examples, BATCH_SIZE):
-        batch_x, batch_y = X_data[offset:offset + BATCH_SIZE], y_data[offset:offset + BATCH_SIZE]
+        batch_x, batch_y = x_data[offset:offset + BATCH_SIZE], y_data[offset:offset + BATCH_SIZE]
         accuracy_operation=sess.graph.get_tensor_by_name('accuracy_op:0')
         x= sess.graph.get_tensor_by_name('placeholder_x:0')
         y = sess.graph.get_tensor_by_name('placeholder_y:0')
         dropout_rate=sess.graph.get_tensor_by_name('placeholder_dropout_rate:0')
-        accuracy = sess.run(accuracy_operation, feed_dict={x: batch_x, y: batch_y, dropout_rate:1.0})
+        accuracy = sess.run(accuracy_operation, feed_dict={x: batch_x, y: batch_y, dropout_rate:0.0})
         total_accuracy += (accuracy * len(batch_x))
     return total_accuracy / num_examples
 
@@ -273,10 +274,10 @@ def dataset_grayscale(x,weights=[0.3,0.3,0.3]):
         grayscale=(weights[i] * x[:,:,:,i]) + grayscale
     return (np.expand_dims(grayscale,axis=3))
 
-def dataset_visualise(X_train, y_train, X_valid, y_valid, X_test=[], y_test=[]):
+def dataset_visualise(x_train, y_train, x_valid, y_valid, x_test=[], y_test=[]):
     # View a sample from the dataset.
-    index = random.randint(0, len(X_train))
-    image = X_train[index].squeeze()
+    index = random.randint(0, len(x_train))
+    image = x_train[index].squeeze()
     fig = plt.figure(figsize=(2, 2))
     plt.imshow(image)
     fig.suptitle("Image label {}, image shape: {}, datatype: {}, min_value: {}, max_value: {}".format(y_train[index], image.shape, image.dtype, np.min(image), np.max(image)))
