@@ -15,7 +15,9 @@ Certain number of steps of this project can be distinguished:
 [image2]: ./writeup/Dataset_label_count.png "Dataset sign distribution"
 [image3]: ./writeup/Dataset_examples.png "Dataset overwiev"
 [image4]: ./writeup/warp.png "Warp Example"
-[image5]: ./writeup/warped_lines_drawn.jpg "Fit Visual"  
+[test_image1]: ./test_images/bumpy_road.jpg "Bumpy road"
+[layer1]: ./test_images/Layer1_response.png "Layer1 response"
+[layer2]: ./test_images/Layer2_response.png "Layer2 response"
 
 
 ## Dataset exploration
@@ -115,8 +117,27 @@ Comparison of different models I tested is provided in following table. Also, at
 ## Test a model on new images
 ### Acquiring New Images
 To test my model on real images I used this images:
-Some of them I found on web and they have watermarks, some of them are my own photos I took in the city with mobile phone. All images were cropped so sign would take roughly more than 60% of image and resized to size of 32x32 as or model is supposed to accept images of that size.
+Some of them I found on web and they have watermarks, some of them are my own photos I took in the city with mobile phone. All images were cropped so sign would take roughly more than 60% of image and resized to size of 32x32 as or model is supposed to accept images of that size. I do not expect watermarks to be a problem for image classification, but angle for images of "bumpy road" and "yield" signs might be a problem this model as I am not sure that dataset contained any images of signs from that angle.
+## Performance on new images
+This is how model classified this images:
 
+| Sign  |     Classification by model      |
+|----------|:-------------:|
+| Stop   |  Stop |
+| No entry |    No entry   |
+| Bumpy road | No vehicles |
+| Ahead only | Ahead only |
+| col 3 is | Double curve |
+| Speed limit (30 km\h) | Speed limit (30 km\h) |
+| Yield | Yield |
 
+We can see that model is correct in 5 of 7 cases which gives us accuracy of 0.714
+### Model Certainty - Softmax Probabilities
+This image shows top 5 softmax probabilities for each image. We can see that in all cases, model was pretty certain of what kind of sign is in front of her, even if it is wrong. It means that model is overfitting.
+## Visualisation of layers
+This images show us how actually NN "sees" one of test images. It is rather interesting to see how STOP sign is handled in order to understand how NN differs "stop" sign from "no entry sign".
+![Alt text][layer1]
+![Alt text][layer2]  
+Images show that NN actually does not read text of "stop" sign due to pooling and from distance it can be easily misclassified as "no entry" sign
 
 
