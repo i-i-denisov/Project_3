@@ -72,14 +72,14 @@ Adam optimizer was used. For the final model following hyperparameters were used
 
 |Hyperparameter|Value|
 |:-----:|:------:|
-|Learinng rate | 0.01|
-| Number of epochs|30 |
-|Batch size|2000|
+|Learinng rate | 0.001|
+| Number of epochs|100 |
+|Batch size|5000|
 |Dropout rate|0.5|
 
 ### Solution Approach
-LeNet for MNIST was taken as a base model and without any modifications it showed around 89 percent accuracy, so I assumed that if we have 4 times more classes than in MNIST we should have more parameters. So I scaled LeNet model two times on all layers and continued to experiment with layers dimensions.
-Comparison of different models I tested is provided in following table. Also, at start, I augmented dataset with RGB poisson noise, but it turned out it doesn't improve accuracy. 
+LeNet for MNIST was taken as a base model and without any modifications it showed around 89 percent accuracy, so I assumed that if we have 4 times more classes than in MNIST,for this task we should have more parameters. So I scaled LeNet model two times on all layers and continued to experiment with layers dimensions.
+Comparison of different models I tested is provided in following table. Also, at start, I augmented dataset with RGB poisson noise, but it turned out, it doesn't improve accuracy. 
 
 | epochs | learning rate | batch size | dropout | RGB\Grayscale | augmentation      | conv1    | conv2     | fc1 output | fc2 output | validation accuracy | memory use |
 |--------|---------------|------------|---------|---------------|-------------------|----------|-----------|------------|------------|---------------------|------------|
@@ -112,4 +112,11 @@ Comparison of different models I tested is provided in following table. Also, at
 | 30     | 0.01          | 2000       | 0.5    | RGB           | no                | 5x5x1x12 | 5x5x12x36 | 120        | 84         | 0.951               | 862740     |
 | 100     | 0.001          | 2000       | 0.5    | RGB           | no                | 5x5x1x12 | 5x5x12x36 | 120        | 84         | 0.942              
 
-Training takes about 4 minutes on GT740M GPU with 1.5 Gb RAM.
+## Test a model on new images
+### Acquiring New Images
+To test my model on real images I used this images:
+Some of them I found on web and they have watermarks, some of them are my own photos I took in the city with mobile phone. All images were cropped so sign would take roughly more than 60% of image and resized to size of 32x32 as or model is supposed to accept images of that size.
+
+
+
+
