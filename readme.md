@@ -15,7 +15,15 @@ Certain number of steps of this project can be distinguished:
 [image2]: ./writeup/Dataset_label_count.png "Dataset sign distribution"
 [image3]: ./writeup/Dataset_examples.png "Dataset overwiev"
 [image4]: ./writeup/warp.png "Warp Example"
-[test_image1]: ./test_images/bumpy_road.jpg "Bumpy road"
+[image5]: ./writeup/softmax.png
+[test_image1]: ./test_images/stop.jpg "Stop"
+[test_image2]: ./test_images/no_entry.jpg "No entry"
+[test_image3]: ./test_images/bumpy_road.jpg "Bumpy road"
+[test_image4]: ./test_images/straight_only.jpg "Straight only"
+[test_image5]: ./test_images/crossing.jpg "Crossing"
+[test_image6]: ./test_images/thirty.jpg "Speed limit"
+[test_image7]: ./test_images/yield.jpg "Yield"
+[input_image]: ./test_images/stop_resized.jpg "Layer1 response"
 [layer1]: ./test_images/Layer1_response.png "Layer1 response"
 [layer2]: ./test_images/Layer2_response.png "Layer2 response"
 
@@ -127,17 +135,20 @@ This is how model classified this images:
 | No entry |    No entry   |
 | Bumpy road | No vehicles |
 | Ahead only | Ahead only |
-| col 3 is | Double curve |
+| Right-of-the-way at next crossing | Double curve |
 | Speed limit (30 km\h) | Speed limit (30 km\h) |
 | Yield | Yield |
 
 We can see that model is correct in 5 of 7 cases which gives us accuracy of 0.714
 ### Model Certainty - Softmax Probabilities
-This image shows top 5 softmax probabilities for each image. We can see that in all cases, model was pretty certain of what kind of sign is in front of her, even if it is wrong. It means that model is overfitting.
+This figure shows top 5 softmax probabilities for each image. We can see that in all cases, model was pretty certain of what kind of sign is in front of her, even if it is wrong. It means that model is overfitting.
+![Alt_text][image5]
 ## Visualisation of layers
-This images show us how actually NN "sees" one of test images. It is rather interesting to see how STOP sign is handled in order to understand how NN differs "stop" sign from "no entry sign".
+This series of images shows us how actually NN "sees" one of test images. It is rather interesting to see how STOP sign is handled in order to understand how NN differs "stop" sign from "no entry sign".
+
+![Alt text][input_image]
 ![Alt text][layer1]
 ![Alt text][layer2]  
-Images show that NN actually does not read text of "stop" sign due to pooling and from distance it can be easily misclassified as "no entry" sign
 
+Images show that NN actually does not read text of "stop" sign due to pooling and from distance it can be easily misclassified as "no entry" sign
 
