@@ -71,21 +71,7 @@ def LeNet(x,label_count,dropout_rate=0.0):
     logits=LeNet_FC(fc0,FC_inputs_count,label_count,dropout_rate=dropout_rate)
     return logits
 
-def LeNetRGB(x,label_count,dropout_rate=0.0):
-   #convolutional part
-    R,G,B=tf.split(x,[1,1,1],axis=3)
-    convR=LeNet_convR(R)
-    convG=LeNet_convG(G)
-    convB=LeNet_convB(B)
-    convR = Flatten()(convR)
-    convG = Flatten()(convG)
-    convB = Flatten()(convB)
-    #print(convB)
-    fc0 = tf.concat([convR,convG,convB],1)
 
-    #Fully connected part
-    logits=LeNet_FC(fc0,2400,label_count,dropout_rate=dropout_rate)
-    return logits
 
 def LeNet_convR (x,dropout_rate=0.0):
     # SOLUTION: Layer 1: Convolutional. Input = 32x32x1. Output = 28x28x6.
@@ -113,52 +99,6 @@ def LeNet_convR (x,dropout_rate=0.0):
     convR2 = tf.nn.max_pool2d(convR2, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='VALID', name='conv2R')
     return convR2
 
-def LeNet_convG (x):
-    # SOLUTION: Layer 1: Convolutional. Input = 32x32x1. Output = 28x28x6.
-    convG1_W = tf.Variable(tf.truncated_normal(shape=(conv1_kernel, conv1_kernel, 1, conv1_depth), mean=mu_conv, stddev=sigma_conv))
-    convG1_b = tf.Variable(tf.zeros(conv1_depth))
-    convG1 = tf.nn.conv2d(x, convG1_W, strides=[1, 1, 1, 1], padding='VALID') + convG1_b
-
-    # SOLUTION: Activation.
-    convG1 = tf.nn.relu(convG1)
-
-    # SOLUTION: Pooling. Input = 28x28x6. Output = 14x14x6.
-    convG1 = tf.nn.max_pool2d(convG1, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='VALID', name='conv1G')
-    # print (conv1.name)
-    # SOLUTION: Layer 2: Convolutional. Output = 10x10x16.
-    convG2_W = tf.Variable(tf.truncated_normal(shape=(conv1_kernel, conv1_kernel, conv1_depth, conv2_depth), mean=mu_conv, stddev=sigma_conv))
-    convG2_b = tf.Variable(tf.zeros(conv2_depth))
-    convG2 = tf.nn.conv2d(convG1, convG2_W, strides=[1, 1, 1, 1], padding='VALID') + convG2_b
-
-    # SOLUTION: Activation.
-    convG2 = tf.nn.relu(convG2)
-
-    # SOLUTION: Pooling. Input = 10x10x16. Output = 5x5x16.
-    convG2 = tf.nn.max_pool2d(convG2, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='VALID', name='conv2G')
-    return convG2
-def LeNet_convB (x):
-    # SOLUTION: Layer 1: Convolutional. Input = 32x32x1. Output = 28x28x6.
-    convB1_W = tf.Variable(tf.truncated_normal(shape=(conv1_kernel, conv1_kernel, 1, conv1_depth), mean=mu_conv, stddev=sigma_conv))
-    convB1_b = tf.Variable(tf.zeros(conv1_depth))
-    convB1 = tf.nn.conv2d(x, convB1_W, strides=[1, 1, 1, 1], padding='VALID') + convB1_b
-
-    # SOLUTION: Activation.
-    convB1 = tf.nn.relu(convB1)
-
-    # SOLUTION: Pooling. Input = 28x28x6. Output = 14x14x6.
-    convB1 = tf.nn.max_pool2d(convB1, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='VALID', name='conv1B')
-    # print (conv1.name)
-    # SOLUTION: Layer 2: Convolutional. Output = 10x10x16.
-    convB2_W = tf.Variable(tf.truncated_normal(shape=(conv2_kernel, conv2_kernel, conv1_depth, conv2_depth), mean=mu, stddev=sigma))
-    convB2_b = tf.Variable(tf.zeros(conv2_depth))
-    convB2 = tf.nn.conv2d(convB1, convB2_W, strides=[1, 1, 1, 1], padding='VALID') + convB2_b
-
-    # SOLUTION: Activation.
-    convB2 = tf.nn.relu(convB2)
-
-    # SOLUTION: Pooling. Input = 10x10x16. Output = 5x5x16.
-    convB2 = tf.nn.max_pool2d(convB2, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='VALID', name='conv2B')
-    return convB2
 
 def LeNet_FC(fc0, FC_inputs_count, label_count, dropout_rate=0.0):
     #fc1_W = tf.Variable(tf.truncated_normal(shape=(2400, 400), mean=mu, stddev=sigma))
